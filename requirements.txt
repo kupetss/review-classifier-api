@@ -1,7 +1,7 @@
 pandas
-scikit-learn
+scikit-learn==1.9.1
 datasets
 matplotlib
-gastapi
+fastapi
 uvicorn
 joblib
