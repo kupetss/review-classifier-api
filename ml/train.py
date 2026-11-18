@@ -4,6 +4,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
+from pathlib import Path
+import joblib
 
 def train_model(train_df):
     model = make_pipeline(
@@ -39,3 +42,10 @@ if __name__ == "__main__":
     predcts = model.predict(test_df["text"])
     accuracy = accuracy_score(test_df["label"], predcts)
     print(f"accuracy:{accuracy:.3f}")
+    
+    print(classification_report(test_df["label"], predcts, target_names=["negative","positive"]))
+
+    MODEL_PATH = Path("model/model.joblib")
+    MODEL_PATH.parent.mkdir(exist_ok=True)
+    joblib.dump(model, MODEL_PATH)
+    print("Модель сохранена:", MODEL_PATH)
